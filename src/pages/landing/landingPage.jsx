@@ -1,50 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NewsBlocksComp from "../../Components/newsBlock/NewsBlocksComp";
-
-const newsData = [
-  {
-    title: "News Title 1",
-    content: "News Content 1",
-    urlToImage:
-      "https://media.wired.com/photos/6487a9b70cbc15924e602c48/191:100/w_1280,c_limit/Fire-Weather-Review-Culture-1258525564.jpg",
-    author: "Author 1",
-  },
-  {
-    title: "News Title 2",
-    content: "News Content 2",
-    urlToImage:
-      "https://media.wired.com/photos/6487a9b70cbc15924e602c48/191:100/w_1280,c_limit/Fire-Weather-Review-Culture-1258525564.jpg",
-    author: "Author 2",
-  },
-  {
-    title: "News Title 2",
-    content: "News Content 2",
-    urlToImage:
-      "https://media.wired.com/photos/6487a9b70cbc15924e602c48/191:100/w_1280,c_limit/Fire-Weather-Review-Culture-1258525564.jpg",
-    author: "Author 2",
-  },
-  {
-    title: "News Title 2",
-    content: "News Content 2",
-    urlToImage:
-      "https://media.wired.com/photos/6487a9b70cbc15924e602c48/191:100/w_1280,c_limit/Fire-Weather-Review-Culture-1258525564.jpg",
-    author: "Author 2",
-  },
-  {
-    title: "News Title 2",
-    content: "News Content 2",
-    urlToImage:
-      "https://media.wired.com/photos/6487a9b70cbc15924e602c48/191:100/w_1280,c_limit/Fire-Weather-Review-Culture-1258525564.jpg",
-    author: "Author 2",
-  },
-  // Add more news items as needed
-];
-
+import axios from "axios";
+import FETCH_NEWS from "../../utils/urls";
 const LandingPage = () => {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiResponse = await axios.get(FETCH_NEWS);
+        const fetchedArticles = apiResponse.data.articles;
+        setArticles(fetchedArticles);
+        sessionStorage.setItem("articles", JSON.stringify(fetchedArticles)); // Save articles to session storage
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       <h1>News Page</h1>
-      <NewsBlocksComp newsData={newsData} />
+      <NewsBlocksComp newsData={articles} />
     </div>
   );
 };
