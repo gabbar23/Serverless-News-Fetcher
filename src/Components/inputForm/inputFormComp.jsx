@@ -19,10 +19,10 @@ const InputForm = () => {
     const client = new SecretsManagerClient({
       region: "us-east-1",
       credentials: {
-        accessKeyId: "ASIAT33KAUVHWRHOOOV6",
-        secretAccessKey: "4e47yXDM5bfJWALaAX4laYF3fGrYTIgLf4LhKRZz",
+        accessKeyId: "ASIAT33KAUVHZQYW4MAE",
+        secretAccessKey: "Ad6L7/O4p8XldD/RFisjzLMZjjtWOBHQ/n9QZTDC",
         sessionToken:
-          "FwoGZXIvYXdzEOj//////////wEaDCCBkqO9EVEkw/g9AyLAAUJS75lJdjU/jFEmDqTZ6w7LBuclbxOp8Bygx1yunA1H5oM0QA3hg0tyl+iIwKNrch9rzyaRK+pCTuqiOSj7swFOrLsoMrZG5GBkxfC/NnwKK+Dic2KOzPBL/PkfZjuOffKiJQv9PbPV1oplL73CLeXycPTqp41LNVJnWiVzlc45ZjflXrk3+8C3Jg3/tLNXUkAyMzS8Ea9YXvbX6/fhJ2ZuwD0JGI1oDLeBuLt57ZX4PnpaCQuDk1q0Qie47AtqICi0rtWlBjIt93aBfvl0O5iVLMmOXr2f+ug/hjAfRr/2wabWKUvRXj06lY9Z78EOOHWfCZt1",
+          "FwoGZXIvYXdzEAgaDP/xDa2hsRitK3HPASLAASQ+t+KQb4kaO//gZBLabBiXvaSC8sA9mCbUqmflpJbEyCWurSP0BOfjzwXMz9nd18coO1WLGoWoYAYk2o2/nG5jsP35ROiVYeZTRYxMt9WRqhNMQnQJn5qVTdoaGV/nDRjnMNCOUPemSZjCeUyo/1I8UEw1sbBlhJ5m7BsmGpjRHKev6z/jFuEmM31x+cXj76rFe3gzvFgmwXI2X3ahnPNTEtDUYMDx9iMzj+RVOHVaG1byABo7VGV5jJOREBXw/CjMmdylBjItWgZd0Wyw4XZkCHHrnRbBYk91O9mJixH9d3FQOSIv4S1Gm7BDkmf5lDdcJAlL",
       },
     });
 
@@ -41,12 +41,33 @@ const InputForm = () => {
 
     const secret = response.SecretString;
     console.log(secret);
-
+    let newsData;
     try {
-      const newsResponse = await axios.get(
-        `https://newsapi.org/v2/top-headlines?q=${keyword}&apiKey=2cc5c60bfdf84d0984aa75e456d32d2a`
-      );
-      const newsData = newsResponse.data;
+      var options = {
+        method: "GET",
+        url: "https://api.newscatcherapi.com/v2/search",
+        params: {
+          q: "Bitcoin",
+          lang: "en",
+          sort_by: "relevancy",
+          page: "1",
+          page_size: "10",
+        },
+        headers: {
+          "x-api-key": "MckROtMrmK9Ax97WSQdJyw3mBYeDzQvdI6O9FKgxNAY",
+        },
+      };
+
+      axios
+        .request(options)
+        .then(function (response) {
+          newsData = response.data;
+          console.log(newsData);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+
       console.log("API Response:", newsData);
 
       try {
