@@ -1,21 +1,45 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
+
+import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+
+import { Snackbar } from "@mui/material";
+import { Alert } from "@mui/material";
 import axios from "axios";
 import "./inputForm.css";
 import {
   SecretsManagerClient,
   GetSecretValueCommand,
 } from "@aws-sdk/client-secrets-manager";
-import SAVE_NEWS from "../../utils/urls";
+import { SAVE_NEWS } from "../../utils/urls";
+import { SUBSCRIBE_EMAIL } from "../../utils/urls";
+import { SNS_API } from "../../utils/urls";
 import { useNavigate } from "react-router-dom";
+const secret_name = "MynewsAPI";
+
+const HtmlTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: "#f5f5f9",
+    color: "rgba(0, 0, 0, 0.87)",
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(12),
+    border: "1px solid #dadde9",
+  },
+}));
 
 const InputForm = () => {
+  console.log(SAVE_NEWS);
   const [keyword, setKeyword] = useState("");
+  const [email, setEmail] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const navigate = useNavigate();
-  const handleSubmit = async () => {
-    const secret_name = "newsAPI";
 
+  const handleSubmit = async () => {
     const client = new SecretsManagerClient({
       region: "us-east-1",
       credentials: {
@@ -54,7 +78,7 @@ const InputForm = () => {
           page_size: "10",
         },
         headers: {
-          "x-api-key": "MckROtMrmK9Ax97WSQdJyw3mBYeDzQvdI6O9FKgxNAY",
+          "x-api-key": secret,
         },
       };
 
@@ -74,6 +98,18 @@ const InputForm = () => {
         const apiResponse = await axios.post(SAVE_NEWS, newsData);
 
         console.log("API Result:", apiResponse.data);
+        try {
+          const response = await axios.post(SNS_API, email);
+
+          console.log("API Result:", response.data);
+          if (response.ok) {
+          } else {
+            // Handle error scenario
+            console.error("Failed to send email");
+          }
+        } catch (error) {
+          console.error(error);
+        }
         // Navigate to /landingPage with the received articles
         navigate("/landingPage");
       } catch (error) {
@@ -84,8 +120,28 @@ const InputForm = () => {
     }
   };
 
+  const handleSubscribe = async () => {
+    try {
+      const subscribeResponse = await axios.post(SUBSCRIBE_EMAIL, {
+        email: email,
+      });
+      console.log("Subscribe API Result:", subscribeResponse.data);
+      setSnackbarOpen(true);
+    } catch (error) {
+      console.error("Subscribe API Error:", error);
+    }
+  };
+
   const handleChange = (event) => {
     setKeyword(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -107,6 +163,49 @@ const InputForm = () => {
       >
         Submit
       </Button>
+      <br />
+      <h1>Subscribe to My Page</h1>
+      <TextField
+        className="input"
+        label="Email"
+        variant="outlined"
+        value={email}
+        onChange={handleEmailChange}
+      />
+      <br />
+
+      <Button
+        className="button"
+        variant="contained"
+        color="primary"
+        onClick={handleSubscribe}
+      >
+        Subscribe
+      </Button>
+
+      {/* Snackbar to show success message */}
+      <Snackbar
+        open={snackbarOpen}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        autoHideDuration={5000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert onClose={handleSnackbarClose} severity="success">
+          Email subscribed successfully! Please Confirm Your Email
+        </Alert>
+      </Snackbar>
+      <HtmlTooltip
+        title={
+          <React.Fragment>
+            <Typography color="inherit">
+              You Will Recieve Email about new News Data added on the website
+              after you confirm you Email!
+            </Typography>
+          </React.Fragment>
+        }
+      >
+        <Button>Please Note</Button>
+      </HtmlTooltip>
     </div>
   );
 };

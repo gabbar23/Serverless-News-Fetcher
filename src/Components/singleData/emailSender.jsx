@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import SNS_API from "../../utils/urls";
+import { SNS_API } from "../../utils/urls";
 const EmailSender = () => {
   const [email, setEmail] = useState("");
   const [isSending, setIsSending] = useState(false);

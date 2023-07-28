@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NewsBlocksComp from "../../Components/newsBlock/NewsBlocksComp";
 import axios from "axios";
-import FETCH_NEWS from "../../utils/urls";
+import { FETCH_NEWS } from "../../utils/urls";
 const LandingPage = () => {
   const [articles, setArticles] = useState([]);
 

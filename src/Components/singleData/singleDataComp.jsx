@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./singleData.css";
-import EmailSender from "./emailSender";
 
 const SingleDataComp = () => {
   const location = useLocation();
@@ -32,7 +31,6 @@ const SingleDataComp = () => {
             <p className="card-author">{article.author}</p>
             <p className="card-author">{article.publishedAt}</p>
             <p className="card-content">{article.content}</p>
-            <EmailSender />
           </div>
         </div>
       ) : (
