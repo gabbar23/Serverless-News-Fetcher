@@ -6,7 +6,15 @@ import "./inputFormPage.css";
 const inputFormPage = () => {
   return (
     <div className="container">
-      <h1>News Data Analysis</h1>
+      <h1 style={{ textDecoration: "none" }}>
+        <a
+          href="/LandingPage"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          News Page
+        </a>
+      </h1>
+
       <InputForm />
     </div>
   );

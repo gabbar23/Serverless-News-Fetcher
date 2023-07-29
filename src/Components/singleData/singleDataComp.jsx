@@ -29,6 +29,9 @@ const SingleDataComp = () => {
           <div className="card-content">
             <h1 className="card-title">{article.title}</h1>
             <p className="card-author">{article.author}</p>
+            <a className="card-author" href={article.url} target="_blank">
+              Link
+            </a>
             <p className="card-author">{article.publishedAt}</p>
             <p className="card-content">{article.content}</p>
           </div>

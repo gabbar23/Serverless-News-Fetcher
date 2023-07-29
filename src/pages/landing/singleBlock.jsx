@@ -5,7 +5,14 @@ import SingleDataComp from "../../Components/singleData/singleDataComp";
 const SinglePage = () => {
   return (
     <div>
-      <h1>News Page</h1>
+      <h1 style={{ textDecoration: "none" }}>
+        <a
+          href="/LandingPage"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          News Page
+        </a>
+      </h1>
       <SingleDataComp />
     </div>
   );

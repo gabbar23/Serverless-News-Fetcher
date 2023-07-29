@@ -16,7 +16,6 @@ import {
 } from "@aws-sdk/client-secrets-manager";
 import { SAVE_NEWS } from "../../utils/urls";
 import { SUBSCRIBE_EMAIL } from "../../utils/urls";
-import { SNS_API } from "../../utils/urls";
 import { useNavigate } from "react-router-dom";
 const secret_name = "MynewsAPI";
 
@@ -50,28 +49,22 @@ const InputForm = () => {
       },
     });
 
-    let response;
-
     try {
-      response = await client.send(
+      const response = await client.send(
         new GetSecretValueCommand({
           SecretId: secret_name,
           VersionStage: "AWSCURRENT",
         })
       );
-    } catch (error) {
-      throw error;
-    }
 
-    const secret = response.SecretString;
-    console.log(secret);
-    let newsData;
-    try {
-      var options = {
+      const secret = response.SecretString;
+      console.log(secret);
+
+      const options = {
         method: "GET",
         url: "https://api.newscatcherapi.com/v2/search",
         params: {
-          q: "Bitcoin",
+          q: keyword,
           lang: "en",
           sort_by: "relevancy",
           page: "1",
@@ -82,38 +75,29 @@ const InputForm = () => {
         },
       };
 
-      axios
-        .request(options)
-        .then(function (response) {
-          newsData = response.data;
-          console.log(newsData);
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
+      const newsApiResponse = await axios.request(options);
+      const newsData = newsApiResponse.data;
 
-      console.log("API Response:", newsData);
+      await axios.post(SAVE_NEWS, newsData);
+      const message = `Hi there user!
+      New News Data has been added to the Website 
+      Topic : ${keyword}
+      See you there!
+      
+      ~ News Data`;
+      const subject = `New Data Added to Website`;
+      const snsResponse = await axios.post(SUBSCRIBE_EMAIL, {
+        message,
+        email: "aman@gmail.com",
+        subject,
+      });
+      console.log(snsResponse);
+      navigate("/landingPage");
 
-      try {
-        const apiResponse = await axios.post(SAVE_NEWS, newsData);
-
-        console.log("API Result:", apiResponse.data);
-        try {
-          const response = await axios.post(SNS_API, email);
-
-          console.log("API Result:", response.data);
-          if (response.ok) {
-          } else {
-            // Handle error scenario
-            console.error("Failed to send email");
-          }
-        } catch (error) {
-          console.error(error);
-        }
-        // Navigate to /landingPage with the received articles
-        navigate("/landingPage");
-      } catch (error) {
-        console.error("API Error:", error);
+      if (snsResponse.status === 200) {
+      } else {
+        // Handle error scenario
+        console.error("Failed to send email");
       }
     } catch (error) {
       console.error("Error:", error);

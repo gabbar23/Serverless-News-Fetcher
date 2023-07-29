@@ -22,7 +22,19 @@ const LandingPage = () => {
 
   return (
     <div>
-      <h1>News Page</h1>
+      <h1 style={{ textDecoration: "none" }}>
+        <a
+          href="/LandingPage"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          News Page
+        </a>
+      </h1>
+      <h1 style={{ textDecoration: "none" }}>
+        <a href="/" style={{ textDecoration: "none", color: "Blue" }}>
+          Search New Article?
+        </a>
+      </h1>
       <NewsBlocksComp newsData={articles} />
     </div>
   );
