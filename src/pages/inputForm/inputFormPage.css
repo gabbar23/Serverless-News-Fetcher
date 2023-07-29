@@ -14,3 +14,8 @@
 .button {
   width: 150px;
 }
+
+.noUnderline {
+  text-decoration: none;
+  color: inherit;
+}

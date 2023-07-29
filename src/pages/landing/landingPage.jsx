@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import NewsBlocksComp from "../../Components/newsBlock/NewsBlocksComp";
 import axios from "axios";
+import { Grid } from "@mui/material";
+import { deepOrange } from "@mui/material/colors";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 import { FETCH_NEWS } from "../../utils/urls";
+import Button from "@mui/material/Button";
 const LandingPage = () => {
   const [articles, setArticles] = useState([]);
 
@@ -22,19 +28,29 @@ const LandingPage = () => {
 
   return (
     <div>
-      <h1 style={{ textDecoration: "none" }}>
-        <a
-          href="/LandingPage"
-          style={{ textDecoration: "none", color: "black" }}
-        >
-          News Page
-        </a>
-      </h1>
-      <h1 style={{ textDecoration: "none" }}>
-        <a href="/" style={{ textDecoration: "none", color: "Blue" }}>
-          Search New Article?
-        </a>
-      </h1>
+      <Grid container spacing={3}>
+        <Grid item>
+          <Avatar sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
+        </Grid>
+        <Grid item xs={6} md={6} lg={6} xl={6}>
+          <Typography variant="h4" component="h4">
+            <a
+              href="/LandingPage"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="noUnderline" // Apply the CSS class
+            >
+              News Data
+            </a>
+          </Typography>
+        </Grid>
+        <Grid item xs={6} md={6} lg={6} xl={6}>
+          <Button variant="contained" component={Link} to="/">
+            Search new Keyword?
+          </Button>
+        </Grid>
+      </Grid>
+
       <NewsBlocksComp newsData={articles} />
     </div>
   );
