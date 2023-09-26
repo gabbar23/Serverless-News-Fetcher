@@ -1,6 +1,5 @@
 # Serverless News Fetcher
 
-![Serverless News Fetcher Logo](insert-logo-url-here)
 
 ## Introduction
 
