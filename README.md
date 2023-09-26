@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Serverless News Fetcher
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Serverless News Fetcher Logo](insert-logo-url-here)
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+Serverless News Fetcher is a web-based application that allows users to fetch news articles related to their interests by providing keywords or phrases. The application leverages a trusted 3rd party API to retrieve up-to-date and credible news content. With a user-friendly interface and a focus on performance and scalability, Serverless News Fetcher aims to provide a seamless news reading experience.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1. Keyword-based News Retrieval
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Serverless News Fetcher empowers users to stay informed about topics that interest them the most. By simply entering a keyword or phrase, users can access a comprehensive list of news articles related to their chosen topic. This feature eliminates the need to browse through various news sources manually, saving time and effort.
 
-### `npm test`
+### 2. User-Friendly Interface
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The application boasts a clean and intuitive user interface that caters to users of all levels of technical proficiency. Whether it's the quick keyword search or managing subscriptions, the interface is designed to be easy to navigate, providing a seamless experience for all users.
 
-### `npm run build`
+### 3. Reliable 3rd Party API Integration
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Serverless News Fetcher relies on a trusted 3rd party API to ensure that the fetched news data is reliable, up-to-date, and from credible sources. The choice of a reputable API guarantees the quality of the news content presented to users.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 4. Performance and Scalability
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The News Data Fetcher application is designed to handle a considerable user load while maintaining its performance. Careful consideration has been given to scalability, ensuring that the application can grow to accommodate a larger user base without compromising on speed and responsiveness.
 
-### `npm run eject`
+## Technologies Used
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### AWS Services
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Compute**: AWS EC2, AWS Lambda
+- **Storage**: AWS DynamoDB
+- **Network**: AWS API Gateway
+- **General**: AWS Secrets Manager, AWS SNS
+- **Others**: AWS CloudFormation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Frontend (Client)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- React
+- HTML
+- JavaScript
 
-## Learn More
+## Getting Started
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To run Serverless News Fetcher locally, follow these steps:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Clone the repository: `git clone https://github.com/your/repo.git`
+2. Install dependencies: `npm install`
+3. Configure AWS services and obtain API keys as needed.
+4. Start the application: `npm start`
 
-### Code Splitting
+## Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Open the Serverless News Fetcher application in your browser.
+2. Enter a keyword or phrase related to the news topic you're interested in.
+3. Click the "Fetch News" button to retrieve news articles.
+4. Browse through the list of articles and click on them to read more.
+5. Enjoy staying informed with the latest news!
 
-### Analyzing the Bundle Size
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+We welcome contributions from the community. If you'd like to contribute to Serverless News Fetcher, please follow our [contribution guidelines](CONTRIBUTING.md).
 
-### Making a Progressive Web App
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This project is licensed under the [MIT License](LICENSE).
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
