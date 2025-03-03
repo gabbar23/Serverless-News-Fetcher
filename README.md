@@ -5,6 +5,11 @@
 
 Serverless News Fetcher is a web-based application that allows users to fetch news articles related to their interests by providing keywords or phrases. The application leverages a trusted 3rd party API to retrieve up-to-date and credible news content. With a user-friendly interface and a focus on performance and scalability, Serverless News Fetcher aims to provide a seamless news reading experience.
 
+
+## Note
+Note: This project was initially hosted on the GitLab server provided by Dalhousie University, but I later transferred it here.
+
+
 ## Features
 
 ### 1. Keyword-based News Retrieval
